@@ -13,6 +13,9 @@ view: league_pdt {
         column: league_losses {}
         column: best_league_position {}
         column: worst_league_position {}
+        derived_column: no_of_seasons {
+          sql: count(season);;
+        }
         derived_column: win_percentage {
           sql: league_wins/ games_played *100;;
         }
@@ -63,17 +66,22 @@ view: league_pdt {
     dimension: worst_league_position {
       type: number
     }
-    dimension: lost_percentage {
-      type: number
-      value_format: "0.00\%"
-    }
-    dimension: draw_percentage {
-      type: number
-      value_format: "0.00\%"
-    }
-    measure: total_win_percentage {
+  dimension: no_of_seasons {
     type: number
-    sql: sum(win_percentage)/count(season) ;;
+  }
+  measure: total_win_percentage {
+    type: number
+    sql: sum(win_percentage)/no_of_seasons ;;
+    value_format: "0.00\%"
+  }
+  measure: total_draw_percentage {
+    type: number
+    sql: sum(draw_percentage)/no_of_seasons ;;
+    value_format: "0.00\%"
+  }
+    measure: total_lose_percentage {
+    type: number
+    sql: sum(lost_percentage)/no_of_seasons ;;
     value_format: "0.00\%"
     }
 

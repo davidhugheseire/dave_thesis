@@ -23,7 +23,8 @@ view: games {
       year,
       month_name,
       day_of_month,
-      day_of_week
+      day_of_week,
+      week_of_year
     ]
     convert_tz: no
     datatype: date

@@ -297,5 +297,15 @@ view: game_stats {
     sql: sum(${away_team_red_cards}+${home_team_red_cards});;
     value_format: "0"
   }
+  measure: home_shots_on_target {
+    type: number
+    sql: sum(${home_team_shots_on_target});;
+    value_format: "0"
+  }
+  measure: home_shots {
+    type: number
+    sql: sum(${home_team_shots});;
+    value_format: "0"
+  }
 
 }

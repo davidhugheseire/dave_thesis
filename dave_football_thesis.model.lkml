@@ -8,9 +8,9 @@ datagroup: dave_football_thesis_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-datagroup: home_team_datagroup  {
+datagroup: league_pdt_datagroup  {
   sql_trigger: SELECT MAX(id) FROM game_stats;;
-  max_cache_age: "8 hours"
+  max_cache_age: "30 minutes"
 }
 
 persist_with: dave_football_thesis_default_datagroup
@@ -22,6 +22,7 @@ explore: league_tables {}
 explore: players {}
 explore: top_scorer {}
 explore: odds {}
+explore: league_pdt {}
 
 
 explore: games {

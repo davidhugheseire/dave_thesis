@@ -69,9 +69,29 @@ view: league_tables {
     drill_fields: [season,team,won,lost,draw,goals,position]
   }
 
-  measure: league_points {
+  measure: max_league_points {
     type: number
     sql: max(${points}) ;;
+  }
+
+  measure: total_league_points {
+    type: number
+    sql: sum(${points}) ;;
+  }
+
+  measure: goals_scored {
+    type: number
+    sql: sum(${goals}) ;;
+  }
+
+  measure: total_goals_against {
+    type: number
+    sql: sum(${TABLE}.goals_against) ;;
+  }
+
+  measure: total_goal_difference {
+    type: number
+    sql: sum(${TABLE}.goal_difference) ;;
   }
 
   measure: league_season {
@@ -79,22 +99,14 @@ view: league_tables {
     sql: ${season} ;;
   }
 
-  measure: league_position {
-    type: number
-    sql: sum(${position}) ;;
-    }
-
   measure: worst_league_position {
     type: number
     sql: max(${position}) ;;
   }
+
   measure: best_league_position {
     type: number
     sql: min(${position}) ;;
-  }
-  measure: goals_scored {
-    type: number
-    sql: sum(${goals}) ;;
   }
 
   measure: league_wins {

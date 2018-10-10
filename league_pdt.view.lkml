@@ -1,6 +1,5 @@
 view: league_pdt {
     derived_table: {
-      datagroup_trigger: league_pdt_datagroup
       explore_source: league_tables {
         column: team_id {}
         column: team {}
@@ -24,12 +23,19 @@ view: league_pdt {
           sql: league_draws/ games_played *100;;
         }
       }
+      datagroup_trigger: league_pdt_datagroup
     }
+
+
+
     dimension: team_id {}
     dimension: team {}
     dimension: games_played {
       type: number
     }
+
+
+
     dimension: season {
     type: number
     }

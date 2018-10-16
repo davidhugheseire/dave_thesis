@@ -66,20 +66,48 @@ view: players {
     type: count
     drill_fields: [player_id]
   }
+
   measure: total_market_value {
     type: number
     sql: sum(${market_value});;
     value_format: "#,##0"
   }
+
   measure: total_fantasy_points {
     type: number
     sql: sum(${fpl_points});;
     value_format: "#,##0"
   }
+
   measure: total_fantasy_value {
     type: number
     sql: sum(${fpl_value});;
     value_format: "#,##0"
+  }
+
+  measure: min_age {
+    type: number
+    sql:  min(${age}) ;;
+  }
+
+  measure: max_age {
+    type: number
+    sql:  max(${age}) ;;
+  }
+
+  measure: avg_age {
+    type: number
+    sql:  avg(${age}) ;;
+  }
+
+  dimension: player_name {
+    description: "Name of the player"
+    view_label: "Players"
+    type: string
+    sql:  ${TABLE}.player ;;
+    html: {{linked_value}}
+          <a href="https://www.google.com/search?q={{ value }}" height="90%" width="90%" target="_new">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Google-favicon-2015.png" height=15 width=15> </a> ;;
   }
 
 }

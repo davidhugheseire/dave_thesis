@@ -19,10 +19,21 @@ persist_with: dave_football_thesis_default_datagroup
 explore: club {}
 explore: game_stats {}
 explore: league_tables {}
-explore: players {}
+#explore: players {}
 explore: top_scorer {}
 explore: odds {}
 explore: league_pdt {}
+
+
+
+explore: players {
+  join: game_stats {
+    type: left_outer
+    sql_on: ${players.team_id} = ${game_stats.id} ;;
+    relationship: many_to_one
+  }
+}
+
 
 
 explore: games {
@@ -56,4 +67,16 @@ join: game_stats {
     sql_on: ${top_scorer.club} = ${players.club};;
     relationship: one_to_many
   }
+  join: league_pdt{
+    type: left_outer
+    sql_on: ${top_scorer.club} = ${players.club};;
+    relationship: one_to_many
+  }
+
+
+
+
+
+
+
 }

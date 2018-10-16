@@ -169,16 +169,115 @@ view: game_stats {
 ;;
   }
 
+  dimension: team_image  {
+    description: "Team Crest"
+    type: string
+    sql:  ${TABLE}.home_team ;;
+    html:
+    {% if {{value}} == "Arsenal" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t3.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Brighton" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t36.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Burnley" %}
+    <div><img src="" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Chelsea" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t8.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Crystal Palace" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t31.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Everton" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t11.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Huddersfield" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t38.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Leicester" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t13.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Liverpool" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t14.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Man City" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t43.svg  " width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Man United" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t1.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Newcastle United" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t4.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Southampton" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t20.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Stoke" %}
+    <div><img src="https://cdn.shopify.com/s/files/1/1888/7339/files/Stoke_City_06_grande.jpg?v=1498033163" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Swansea City" %}
+    <div><img src="" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Tottenham" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t6.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Watford" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t57.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "West Bromwich Albion" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t35.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "West Ham United" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t21.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Wolverhampton Wanderers" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t39.svg" width="55%" height="55%" align="middle"/></div>
+    {% endif %} ;;
+  }
+
+  dimension: ateam_image  {
+    description: "aTeam Crest"
+    type: string
+    sql:  ${TABLE}.away_team ;;
+    html:
+    {% if {{value}} == "Arsenal" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t3.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Brighton" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t36.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Burnley" %}
+    <div><img src="" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Chelsea" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t8.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Crystal Palace" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t31.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Everton" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t11.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Huddersfield" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t38.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Leicester" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t13.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Liverpool" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t14.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Man City" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t43.svg  " width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Man United" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t1.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Newcastle United" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t4.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Southampton" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t20.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Stoke" %}
+    <div><img src="https://cdn.shopify.com/s/files/1/1888/7339/files/Stoke_City_06_grande.jpg?v=1498033163" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Swansea City" %}
+    <div><img src="" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Tottenham" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t6.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Watford" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t57.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "West Bromwich Albion" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t35.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "West Ham United" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t21.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Wolverhampton Wanderers" %}
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t39.svg" width="55%" height="55%" align="middle"/></div>
+    {% endif %} ;;
+  }
 
   dimension: both_teams_score {
     type: yesno
     sql: ${home_team_goals} > 0 and ${away_team_goals} > 0  ;;
   }
 
+
+ ################################# dimension end
+
   measure: count {
     type: count_distinct
     drill_fields: [id]
   }
+
   measure: count_games {
     type: count_distinct
     sql:${game_stats.id};;
@@ -190,22 +289,27 @@ view: game_stats {
     sql:${game_stats.home_team};;
     drill_fields: [club.team_name,club.city,club.stadium,club.capacity,club.location]
   }
+
   measure: count_goals {
     type: number
     sql: sum(${home_team_goals}+${away_team_goals});;
   }
+
   measure: count_away_goals {
     type: number
     sql: sum(${away_team_goals});;
   }
+
   measure: count_home_goals {
     type: number
     sql: sum(${home_team_goals});;
   }
+
   measure: count_home_team_half_time_goals {
     type: number
     sql: sum(${home_team_half_time_goals});;
   }
+
   measure: count_away_team_half_time_goals {
     type: number
     sql: sum(${away_team_half_time_goals});;
@@ -220,6 +324,7 @@ view: game_stats {
       value: "H"
     }
   }
+
   measure: away_wins{
     type: count_distinct
     sql: ${game_stats.id} ;;
@@ -229,6 +334,7 @@ view: game_stats {
       value: "A"
     }
   }
+
   measure: draws{
     type: count_distinct
     sql: ${game_stats.id} ;;
@@ -249,52 +355,87 @@ view: game_stats {
     }
   }
 
-  measure: home_come_back {
-    type: number
-    sql: ${count_away_team_half_time_goals}-${count_home_team_half_time_goals};;
-  }
-  measure: away_come_back {
-    type: number
-    sql: ${count_home_team_half_time_goals}-${count_away_team_half_time_goals};;
-  }
-  measure: home_win_percent {
-    type: number
-    sql: (${home_wins}/${count_games})*100;;
-    value_format:"0.00\%"
-  }
-  measure: away_win_percent {
-    type: number
-    sql: (${away_wins}/${count_games})*100;;
-    value_format:"0.00\%"
-  }
-  measure: draw_percent {
-    type: number
-    sql: (${draws}/${count_games})*100;;
-    value_format:"0.00\%"
-  }
-  measure: avg_corners {
-    type: number
-    sql: avg(${away_team_corners}+${home_team_corners});;
-    value_format: "0"
-  }
-  measure: avg_fouls {
-    type: number
-    sql: avg(${away_team_fouls}+${home_team_fouls});;
-    value_format: "0"
-  }
   measure: both_team_score_percent {
     type: number
     sql: (${both_teams_scored}/${count_games})*100;;
     value_format:"0\%"
   }
+
+  measure: both_team_score_percent_guage {
+    type: number
+    sql: (${both_teams_scored}/${count_games})*100;;
+    value_format:"0\%"
+    html: {{value}}<img src="https://chart.googleapis.com/chart?chs=500x300&cht=gom&chxt=y&chco=d84341,efb30e,f2f210,6fe043&chf=bg,s,FFFFFF00&chd=t:{{ value }}"/> ;;
+  }
+
+  measure: home_come_back {
+    type: number
+    sql: ${count_away_team_half_time_goals}-${count_home_team_half_time_goals};;
+  }
+
+  measure: away_come_back {
+    type: number
+    sql: ${count_home_team_half_time_goals}-${count_away_team_half_time_goals};;
+  }
+
+  measure: home_win_percent {
+    type: number
+    sql: (${home_wins}/${count_games})*100;;
+    value_format:"0.00\%"
+  }
+
+  measure: test_gauge {
+    type: number
+    sql: (${home_wins}/${count_games})*100;;
+    html: {{value}}<img src="https://chart.googleapis.com/chart?chs=500x300&cht=gom&chxt=y&chco=d84341,efb30e,f2f210,6fe043&chf=bg,s,FFFFFF00&chd=t:{{ value }}"/> ;;
+  }
+
+  measure: away_win_percent {
+    type: number
+    sql: (${away_wins}/${count_games})*100;;
+    value_format:"0.00\%"
+  }
+
+  measure: draw_percent {
+    type: number
+    sql: (${draws}/${count_games})*100;;
+    value_format:"0.00\%"
+  }
+
+  measure: avg_corners {
+    type: number
+    sql: avg(${away_team_corners}+${home_team_corners});;
+    value_format: "0"
+  }
+
+  measure: avg_fouls {
+    type: number
+    sql: avg(${away_team_fouls}+${home_team_fouls});;
+    value_format: "0"
+  }
+
+  measure: total_fouls {
+    type: number
+    sql: sum(${away_team_fouls}+${home_team_fouls});;
+    value_format: "0"
+  }
+
+
   measure: total_yellow_cards {
     type: number
     sql: sum(${away_team_yellow_cards}+${home_team_yellow_cards});;
     value_format: "0"
   }
+
   measure: total_red_cards {
     type: number
     sql: sum(${away_team_red_cards}+${home_team_red_cards});;
+    value_format: "0"
+  }
+
+  measure: home_shots {
+    type: number
+    sql: sum(${home_team_shots});;
     value_format: "0"
   }
   measure: home_shots_on_target {
@@ -302,10 +443,46 @@ view: game_stats {
     sql: sum(${home_team_shots_on_target});;
     value_format: "0"
   }
-  measure: home_shots {
+
+  measure: away_shots {
     type: number
-    sql: sum(${home_team_shots});;
+    sql: sum(${away_team_shots});;
     value_format: "0"
   }
+  measure: away_shots_on_target {
+    type: number
+    sql: sum(${away_team_shots_on_target});;
+    value_format: "0"
+    }
+  measure: game_shot_accuracy {
+    type: number
+    sql: ((${away_shots_on_target}+${home_shots_on_target})/(${home_shots}+${away_shots}))*100;;
+    value_format:"0.00\%"
+  }
+  measure: away_team_shot_accuracy {
+    type: number
+    sql: ((${away_shots_on_target})/(nullif(${away_shots}, 0)))*100;;
+    value_format:"0.00\%"
+  }
+  measure: home_team_shot_accuracy {
+    type: number
+    sql: ((${home_shots_on_target})/(${home_shots}))*100;;
+    value_format:"0.00\%"
+  }
+  measure: away_team_conversion_rate {
+    type: number
+    sql: ((${count_away_goals}/nullif(${away_shots}, 0)))*100;;
+    value_format:"0.00\%"
+  }
+  measure: home_team_conversion_rate {
+    type: number
+    sql: (((${count_home_goals}/${home_shots})))*100;;
+    value_format:"0.00\%"
+  }
 
+  measure: home_winning_at_half_time{
+    description: "Home team winning at half time"
+    type: yesno
+    sql: ${home_team_half_time_goals}-${away_team_half_time_goals} > 0 ;;
+  }
 }

@@ -35,6 +35,10 @@ view: games {
     type: string
     sql: ${TABLE}.division ;;
   }
+  measure: measure_division {
+    type: string
+    sql: count(${TABLE}.division) ;;
+  }
 
   dimension: home_team_id {
     type: string

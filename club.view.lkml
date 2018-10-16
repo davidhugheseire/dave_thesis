@@ -42,7 +42,6 @@ view: club {
     sql: ${TABLE}.team ;;
   }
 
-
   dimension: team_id {
     type: string
     sql: ${TABLE}.team_id ;;
@@ -53,17 +52,15 @@ view: club {
     sql: ${TABLE}.team_name ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [team_name]
-  }
-
-
   dimension: location {
     type: location
     sql_latitude: ${latitude};;
     sql_longitude: ${longitude};;
-    }
+  }
 
+  measure: count {
+    type: count
+    drill_fields: [team_name]
+  }
 
 }

@@ -27,63 +27,75 @@ view: home_stats_pdt {
   dimension: home_team_id {}
   dimension: home_team {}
   dimension: count_games {
+    label: "Historic no of Home Games%"
     type: number
   }
   dimension: home_shots {
+    label: "Historic Home Shots"
     value_format: "0"
     type: number
   }
   dimension: home_win_percent {
+    label: "Historic Home Win %"
     value_format: "0.00\%"
     type: number
   }
   dimension: home_shots_on_target {
+    label: "Historic Home Shots on Target"
     value_format: "0"
     type: number
   }
   dimension: home_team_conversion_rate {
+    label: "Historic Home Conversion Rate"
     value_format: "0.00\%"
     type: number
   }
   dimension: home_team_shot_accuracy {
+    label: "Historic Home Shot Accuracy"
     value_format: "0.00\%"
     type: number
   }
   dimension: home_wins {
+    label: "Historic Home Wins"
     type: number
   }
   dimension: both_team_score_percent {
+    label: "Historic Both Scored % Home"
     value_format: "0\%"
     type: number
   }
   dimension: draw_percent {
+    label: "Historic Drawn % Home"
     value_format: "0.00\%"
     type: number
   }
   dimension: avg_home_win_odds {
+    label: "Historic Win Odds Home"
     value_format: "0.00"
     type: number
   }
   dimension: avg_away_win_odds {
+    label: "Historic Lose Odds Home"
     value_format: "0.00"
     type: number
   }
   dimension: avg_draw_odds {
+    label: "Historic Draw Odds Home"
     value_format: "0.00"
     type: number
   }
   dimension: home_win_implied_probability {
-    label: "Odds home win implied probability"
+    label: "Historic win probability Home"
     value_format: "0\%"
     type: number
   }
   dimension: away_implied_probability {
-    label: "Odds away win implied probability"
+    label: "Hostoric Lose probability Home"
     value_format: "0\%"
     type: number
   }
   dimension: draw_implied_probability {
-    label: "Odds draw implied probability"
+    label: "Historic Draw Probability Home"
     value_format: "0\%"
     type: number
   }

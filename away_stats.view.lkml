@@ -24,66 +24,82 @@ view: away_stats_pdt {
     }
     datagroup_trigger: league_pdt_datagroup
   }
-  dimension: away_team_id {}
-  dimension: away_team {}
+  dimension: away_team_id {
+    hidden: yes
+  }
+  dimension: away_team {
+    hidden: yes
+  }
   dimension: count_games {
+    label: "Historic no of Away Games%"
     type: number
   }
   dimension: away_shots {
+    label: "Historic Away Shots%"
     value_format: "0"
     type: number
   }
   dimension: away_win_percent {
+    label: "Historic Away Win %"
     value_format: "0.00\%"
     type: number
   }
   dimension: away_shots_on_target {
+    label: "Historic Away Conversion Rate"
     value_format: "0"
     type: number
   }
   dimension: away_team_conversion_rate {
+    label: "Historic Away Conversion Rate"
     value_format: "0.00\%"
     type: number
   }
   dimension: away_team_shot_accuracy {
+    label: "Historic Away Shot Accuracy"
     value_format: "0.00\%"
     type: number
   }
   dimension: away_wins {
+    label: "Historic Away Wins"
     type: number
   }
   dimension: both_team_score_percent {
+    label: "Historic Both Scored Away"
     value_format: "0\%"
     type: number
   }
   dimension: draw_percent {
+    label: "Historic Drawn % Away"
     value_format: "0.00\%"
     type: number
   }
   dimension: avg_away_win_odds {
+    label: "Historic Win Odds Away"
     value_format: "0.00"
     type: number
   }
   dimension: avg_home_win_odds {
+    label: "Historic Lose Odds Away"
     value_format: "0.00"
     type: number
   }
   dimension: avg_draw_odds {
+    label: "Historic Draw Odds Away"
     value_format: "0.00"
     type: number
   }
   dimension: away_implied_probability {
-    label: "Odds away win implied probability"
+    label: "Historic Win Probability Away"
     value_format: "0\%"
     type: number
   }
   dimension: home_win_implied_probability {
-    label: "Odds home win implied probability"
+    label: "Historic lose Probability"
     value_format: "0\%"
     type: number
   }
   dimension: draw_implied_probability {
-    label: "Odds draw implied probability"
+    label: "Historic Draw Probability Away"
     value_format: "0\%"
     type: number
   }

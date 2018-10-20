@@ -25,7 +25,7 @@ explore: odds {}
 explore: league_pdt {}
 #explore: home_stats_pdt {}
 explore: away_stats_pdt {}
-
+explore: fixture_history_pdt {}
 
 
 explore: players {
@@ -88,6 +88,12 @@ join: game_stats {
   join: away_stats_pdt{
     type: left_outer
     sql_on: ${away_stats_pdt.away_team_id} = ${games.away_team_id};;
+    relationship: one_to_one
+  }
+  join: fixture_history_pdt{
+    type: left_outer
+    sql_on: ${fixture_history_pdt.home_team_id} = ${games.home_team_id}
+    and ${fixture_history_pdt.away_team_id} = ${games.away_team_id};;
     relationship: one_to_one
   }
 }

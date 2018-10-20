@@ -25,14 +25,6 @@ view: fixture_history_pdt {
       column: home_win_implied_probability { field: odds.home_win_implied_probability }
       column: away_implied_probability { field: odds.away_implied_probability }
       column: draw_implied_probability { field: odds.draw_implied_probability }
-      filters: {
-        field: game_stats.home_team
-        value: "Stoke"
-      }
-      filters: {
-        field: game_stats.away_team
-        value: "Liverpool"
-      }
     }
     datagroup_trigger: league_pdt_datagroup
   }

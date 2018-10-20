@@ -13,8 +13,6 @@ view: game_stats {
     drill_fields: [games.league,away_team]
   }
 
-
-
   dimension: away_team_corners {
     type: number
     sql: ${TABLE}.away_team_corners ;;

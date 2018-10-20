@@ -24,7 +24,7 @@ explore: top_scorer {}
 explore: odds {}
 explore: league_pdt {}
 explore: fixtures_pdt {}
-explore: home_stats_pdt {}
+#explore: home_stats_pdt {}
 explore: away_stats_pdt {}
 
 
@@ -37,7 +37,13 @@ explore: players {
   }
 }
 
-
+explore: home_stats_pdt {
+  join: away_stats_pdt{
+    type: left_outer
+    sql_on: ${home_stats_pdt.home_team_id} = ${away_stats_pdt.away_team_id};;
+    relationship: one_to_one
+  }
+}
 
 explore: games {
 join: game_stats {
@@ -80,11 +86,4 @@ join: game_stats {
     sql_on: ${fixtures_pdt.home_team} = ${game_stats.home_team};;
     relationship: one_to_one
   }
-
-
-
-
-
-
-
 }

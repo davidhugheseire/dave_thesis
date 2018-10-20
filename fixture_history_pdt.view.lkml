@@ -59,7 +59,7 @@ view: fixture_history_pdt {
     type: number
   }
   dimension: home_shots_on_target {
-    label: "Fixture Shots on Target"
+    label: "Fixture Home Shots on Target"
     value_format: "0"
     type: number
   }

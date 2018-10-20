@@ -1,7 +1,7 @@
 # If necessary, uncomment the line below to include explore_source.
 # include: "dave_football_thesis.model.lkml"
 
-view: fixtures_team_v_team {
+view: fixtures_pdt {
   derived_table: {
     explore_source: games {
       column: home_team { field: game_stats.home_team }

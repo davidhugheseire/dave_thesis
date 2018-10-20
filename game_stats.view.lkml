@@ -13,6 +13,8 @@ view: game_stats {
     drill_fields: [games.league,away_team]
   }
 
+
+
   dimension: away_team_corners {
     type: number
     sql: ${TABLE}.away_team_corners ;;
@@ -485,4 +487,5 @@ view: game_stats {
     type: yesno
     sql: ${home_team_half_time_goals}-${away_team_half_time_goals} > 0 ;;
   }
+
 }

@@ -114,7 +114,7 @@ view: fixture_history_pdt {
     type: number
   }
   dimension: avg_home_win_odds {
-    label: "Fixture Both Scored %"
+    label: "Fixture Home Win %"
     value_format: "0.00"
     type: number
   }

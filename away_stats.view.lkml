@@ -35,7 +35,7 @@ view: away_stats_pdt {
     type: number
   }
   dimension: away_shots {
-    label: "Historic Away Shots%"
+    label: "Historic Away Shots"
     value_format: "0"
     type: number
   }
@@ -45,7 +45,7 @@ view: away_stats_pdt {
     type: number
   }
   dimension: away_shots_on_target {
-    label: "Historic Away Conversion Rate"
+    label: "Historic Away Shots on Target"
     value_format: "0"
     type: number
   }

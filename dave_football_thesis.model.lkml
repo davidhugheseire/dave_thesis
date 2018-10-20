@@ -8,6 +8,13 @@ datagroup: dave_football_thesis_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+
+datagroup: bqml_datagroup {
+  #retrain model every day
+  max_cache_age: "1 hour"
+  sql_trigger: SELECT CURRENT_DATE() ;;
+}
+
 datagroup: league_pdt_datagroup  {
   sql_trigger: SELECT MAX(id) FROM game_stats;;
   max_cache_age: "30 minutes"

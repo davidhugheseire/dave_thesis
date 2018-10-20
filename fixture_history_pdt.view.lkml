@@ -17,6 +17,11 @@ view: fixture_history_pdt {
       column: home_team_shot_accuracy { field: game_stats.home_team_shot_accuracy }
       column: home_team_conversion_rate { field: game_stats.home_team_conversion_rate }
       column: home_shots { field: game_stats.home_shots }
+      column: away_win_percent { field: game_stats.away_win_percent }
+      column: away_shots_on_target { field: game_stats.away_shots_on_target }
+      column: away_team_shot_accuracy { field: game_stats.away_team_shot_accuracy }
+      column: away_team_conversion_rate { field: game_stats.away_team_conversion_rate }
+      column: away_shots { field: game_stats.away_shots }
       column: draw_percent { field: game_stats.draw_percent }
       column: both_team_score_percent { field: game_stats.both_team_score_percent }
       column: avg_home_win_odds { field: odds.avg_home_win_odds }
@@ -70,6 +75,31 @@ view: fixture_history_pdt {
   }
   dimension: home_shots {
     label: "Fixture Home Shots"
+    value_format: "0"
+    type: number
+  }
+  dimension: Away_win_percent {
+    label: "Fixture Away Win %"
+    value_format: "0.00\%"
+    type: number
+  }
+  dimension: away_shots_on_target {
+    label: "Fixture Away Shots on Target"
+    value_format: "0"
+    type: number
+  }
+  dimension: away_team_shot_accuracy {
+    label: "Fixture Away Shot Accuracy"
+    value_format: "0.00\%"
+    type: number
+  }
+  dimension: away_team_conversion_rate {
+    label: "Fixture Away Conversion Rate"
+    value_format: "0.00\%"
+    type: number
+  }
+  dimension: away_shots {
+    label: "Fixture Away Shots"
     value_format: "0"
     type: number
   }

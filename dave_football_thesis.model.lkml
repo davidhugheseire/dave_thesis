@@ -23,6 +23,9 @@ explore: league_tables {}
 explore: top_scorer {}
 explore: odds {}
 explore: league_pdt {}
+explore: fixtures_pdt {}
+explore: home_stats_pdt {}
+explore: away_stats_pdt {}
 
 
 
@@ -71,6 +74,11 @@ join: game_stats {
     type: left_outer
     sql_on: ${top_scorer.club} = ${players.club};;
     relationship: one_to_many
+  }
+  join: fixtures_pdt{
+    type: left_outer
+    sql_on: ${fixtures_pdt.home_team} = ${game_stats.home_team};;
+    relationship: one_to_one
   }
 
 

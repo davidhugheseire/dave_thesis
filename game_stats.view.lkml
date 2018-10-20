@@ -143,6 +143,7 @@ view: game_stats {
     }
   }
 
+
   dimension: result_full_time {
     sql: ${full_time_result} ;;
     html:
@@ -484,6 +485,11 @@ view: game_stats {
     description: "Home team winning at half time"
     type: yesno
     sql: ${home_team_half_time_goals}-${away_team_half_time_goals} > 0 ;;
+  }
+  dimension: win{
+    description: "Outcome - Win"
+    type: number
+    sql: IF(${full_time_score} = 'H', 1,0);;
   }
 
 }

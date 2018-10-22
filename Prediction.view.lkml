@@ -32,7 +32,7 @@ view: training_input {
       column: win { field: game_stats.win }
       filters: {
         field: games.season
-        value: "2008,2009,2010,2011,2012"
+        value: "2008,2009,2010,2011"
       }
     }
   }
@@ -73,7 +73,7 @@ view: testing_input {
       column: win { field: game_stats.win }
       filters: {
         field: games.season
-        value: "2013,2014,2015,2016,2017"
+        value: "2012,2013,2014,2015,2016,2017"
       }
     }
   }
@@ -135,6 +135,9 @@ view: roc_curve {
   }
   dimension: threshold {
    type: number}
+
+
+
   dimension: recall {type: number value_format_name: percent_2}
   dimension: false_positive_rate {type: number}
   dimension: true_positives {type: number }
@@ -241,7 +244,6 @@ view: future_input {
       column: away_team_shot_accuracy { field: away_stats_pdt.away_team_shot_accuracy }
       column: home_shots_on_target { field: home_stats_pdt.home_shots_on_target }
       column: away_shots_on_target { field: away_stats_pdt.away_shots_on_target }
-      column: win { field: game_stats.win }
       filters: {
         field: games.season
         value: "2018"

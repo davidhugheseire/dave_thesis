@@ -11,12 +11,12 @@ view: training_input {
       column: away_team { field: game_stats.away_team }
       column: home_shots { field: fixture_history_pdt.home_shots }
       column: away_shots { field: fixture_history_pdt.away_shots }
-      column: home_shots_on_target { field: fixture_history_pdt.home_shots_on_target }
-      column: away_shots_on_target { field: fixture_history_pdt.away_shots_on_target }
-      column: home_team_shot_accuracy { field: fixture_history_pdt.home_team_shot_accuracy }
-      column: away_team_shot_accuracy { field: fixture_history_pdt.away_team_shot_accuracy }
-      column: home_win_percent { field: fixture_history_pdt.home_win_percent }
-      column: Away_win_percent { field: fixture_history_pdt.Away_win_percent }
+      column: fixture_home_shots_on_target { field: fixture_history_pdt.home_shots_on_target }
+      column: fixture_away_shots_on_target { field: fixture_history_pdt.away_shots_on_target }
+      column: fixture_home_team_shot_accuracy { field: fixture_history_pdt.home_team_shot_accuracy }
+      column: fixture_away_team_shot_accuracy { field: fixture_history_pdt.away_team_shot_accuracy }
+      column: fixture_home_win_percent { field: fixture_history_pdt.home_win_percent }
+      column: fixture_Away_win_percent { field: fixture_history_pdt.Away_win_percent }
       column: home_wins { field: fixture_history_pdt.home_wins }
       column: away_wins { field: fixture_history_pdt.away_wins }
       column: draws { field: fixture_history_pdt.draws }
@@ -52,12 +52,12 @@ view: testing_input {
       column: away_team { field: game_stats.away_team }
       column: home_shots { field: fixture_history_pdt.home_shots }
       column: away_shots { field: fixture_history_pdt.away_shots }
-      column: home_shots_on_target { field: fixture_history_pdt.home_shots_on_target }
-      column: away_shots_on_target { field: fixture_history_pdt.away_shots_on_target }
-      column: home_team_shot_accuracy { field: fixture_history_pdt.home_team_shot_accuracy }
-      column: away_team_shot_accuracy { field: fixture_history_pdt.away_team_shot_accuracy }
-      column: home_win_percent { field: fixture_history_pdt.home_win_percent }
-      column: Away_win_percent { field: fixture_history_pdt.Away_win_percent }
+      column: fixture_home_shots_on_target { field: fixture_history_pdt.home_shots_on_target }
+      column: fixture_away_shots_on_target { field: fixture_history_pdt.away_shots_on_target }
+      column: fixture_home_team_shot_accuracy { field: fixture_history_pdt.home_team_shot_accuracy }
+      column: fixture_away_team_shot_accuracy { field: fixture_history_pdt.away_team_shot_accuracy }
+      column: fixture_home_win_percent { field: fixture_history_pdt.home_win_percent }
+      column: fixture_Away_win_percent { field: fixture_history_pdt.Away_win_percent }
       column: home_wins { field: fixture_history_pdt.home_wins }
       column: away_wins { field: fixture_history_pdt.away_wins }
       column: draws { field: fixture_history_pdt.draws }
@@ -133,14 +133,8 @@ view: roc_curve {
         MODEL ${win_model.SQL_TABLE_NAME},
         (SELECT * FROM ${testing_input.SQL_TABLE_NAME}));;
   }
-#  dimension: threshold {
- #   type: number
-  #  link: {
-   #   label: "Likely Customers to Purchase"
-    #  url: "/explore/bqml_ga_demo/ga_sessions?fields=ga_sessions.fullVisitorId,future_purchase_prediction.max_predicted_score&f[future_purchase_prediction.predicted_will_purchase_in_future]=%3E%3D{{value}}"
-     # icon_url: "http://www.looker.com/favicon.ico"
-  #  }
- # }
+  dimension: threshold {
+   type: number}
   dimension: recall {type: number value_format_name: percent_2}
   dimension: false_positive_rate {type: number}
   dimension: true_positives {type: number }
@@ -223,43 +217,56 @@ view: win_model_training_info {
 
 view: future_input {
   derived_table: {
-    explore_source: ga_sessions {
-      column: visitId {}
-      column: fullVisitorId {}
-      column: medium { field: trafficSource.medium }
-      column: channelGrouping {}
-      column: isMobile { field: device.isMobile }
-      column: country { field: geoNetwork.country }
-      column: bounces_total { field: totals.bounces_total }
-      column: pageviews_total { field: totals.pageviews_total }
-      column: transactions_count { field: totals.transactions_count }
-      column: first_time_visitors {}
+    explore_source: games {
+      column: id {}
+      column: home_team { field: game_stats.home_team }
+      column: away_team { field: game_stats.away_team }
+      column: home_shots { field: fixture_history_pdt.home_shots }
+      column: away_shots { field: fixture_history_pdt.away_shots }
+      column: fixture_home_shots_on_target { field: fixture_history_pdt.home_shots_on_target }
+      column: fixture_away_shots_on_target { field: fixture_history_pdt.away_shots_on_target }
+      column: fixture_home_team_shot_accuracy { field: fixture_history_pdt.home_team_shot_accuracy }
+      column: fixture_away_team_shot_accuracy { field: fixture_history_pdt.away_team_shot_accuracy }
+      column: fixture_home_win_percent { field: fixture_history_pdt.home_win_percent }
+      column: fixture_Away_win_percent { field: fixture_history_pdt.Away_win_percent }
+      column: home_wins { field: fixture_history_pdt.home_wins }
+      column: away_wins { field: fixture_history_pdt.away_wins }
+      column: draws { field: fixture_history_pdt.draws }
+      column: home_win_implied_probability { field: fixture_history_pdt.home_win_implied_probability }
+      column: away_implied_probability { field: fixture_history_pdt.away_implied_probability }
+      column: draw_implied_probability { field: fixture_history_pdt.draw_implied_probability }
+      column: home_win_percent { field: home_stats_pdt.home_win_percent }
+      column: away_win_percent { field: away_stats_pdt.away_win_percent }
+      column: home_team_shot_accuracy { field: home_stats_pdt.home_team_shot_accuracy }
+      column: away_team_shot_accuracy { field: away_stats_pdt.away_team_shot_accuracy }
+      column: home_shots_on_target { field: home_stats_pdt.home_shots_on_target }
+      column: away_shots_on_target { field: away_stats_pdt.away_shots_on_target }
+      column: win { field: game_stats.win }
       filters: {
-        field: ga_sessions.partition_date
-        value: "360 days"
+        field: games.season
+        value: "2018"
       }
     }
   }
 }
 
 
-view: future_purchase_prediction {
+view: future_win_prediction {
   derived_table: {
     sql: SELECT * FROM ml.PREDICT(
-          MODEL ${future_purchase_model.SQL_TABLE_NAME},
+          MODEL ${future_win_model.SQL_TABLE_NAME},
           (SELECT * FROM ${future_input.SQL_TABLE_NAME}));;
   }
-  dimension: predicted_will_purchase_in_future {type: number}
-  dimension: visitId {type: number hidden:yes}
-  dimension: fullVisitorId {type: number hidden: yes}
+  dimension: predicted_will_win_in_future {type: number}
+  dimension: Id {type: number hidden:yes}
   measure: max_predicted_score {
     type: max
     value_format_name: percent_2
-    sql: ${predicted_will_purchase_in_future} ;;
+    sql: ${predicted_will_win_in_future} ;;
   }
   measure: average_predicted_score {
     type: average
     value_format_name: percent_2
-    sql: ${predicted_will_purchase_in_future} ;;
+    sql: ${predicted_will_win_in_future} ;;
   }
 }

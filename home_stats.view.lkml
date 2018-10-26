@@ -99,4 +99,5 @@ view: home_stats_pdt {
     value_format: "0\%"
     type: number
   }
+
 }

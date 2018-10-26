@@ -5,34 +5,26 @@
 
 view: training_input {
   derived_table: {
-    explore_source: games {
+    explore_source: features {
       column: id {}
-      column: home_team { field: game_stats.home_team }
-      column: away_team { field: game_stats.away_team }
-      column: home_shots { field: fixture_history_pdt.home_shots }
-      column: away_shots { field: fixture_history_pdt.away_shots }
-      column: fixture_home_shots_on_target { field: fixture_history_pdt.home_shots_on_target }
-      column: fixture_away_shots_on_target { field: fixture_history_pdt.away_shots_on_target }
-      column: fixture_home_team_shot_accuracy { field: fixture_history_pdt.home_team_shot_accuracy }
-      column: fixture_away_team_shot_accuracy { field: fixture_history_pdt.away_team_shot_accuracy }
-      column: fixture_home_win_percent { field: fixture_history_pdt.home_win_percent }
-      column: fixture_Away_win_percent { field: fixture_history_pdt.Away_win_percent }
-      column: home_wins { field: fixture_history_pdt.home_wins }
-      column: away_wins { field: fixture_history_pdt.away_wins }
-      column: draws { field: fixture_history_pdt.draws }
-      column: home_win_implied_probability { field: fixture_history_pdt.home_win_implied_probability }
-      column: away_implied_probability { field: fixture_history_pdt.away_implied_probability }
-      column: draw_implied_probability { field: fixture_history_pdt.draw_implied_probability }
-      column: home_win_percent { field: home_stats_pdt.home_win_percent }
-      column: away_win_percent { field: away_stats_pdt.away_win_percent }
-      column: home_team_shot_accuracy { field: home_stats_pdt.home_team_shot_accuracy }
-      column: away_team_shot_accuracy { field: away_stats_pdt.away_team_shot_accuracy }
-      column: home_shots_on_target { field: home_stats_pdt.home_shots_on_target }
-      column: away_shots_on_target { field: away_stats_pdt.away_shots_on_target }
-      column: win { field: game_stats.win }
+      column: home_team {}
+      column: away_team {}
+      column: home_wins {}
+      column: away_wins {}
+      column: home_shot_accuracy {}
+      column: home_conversion_rate {}
+      column: home_win_percent {}
+      column: away_win_percent  {}
+      column: home_win_implied_probability {}
+      column: away_implied_probability {}
+      column: loss_percent {}
+      column: win_percent {}
+      column: win_probability {}
+      column: conversion_rate {}
+      column: win {}
       filters: {
-        field: games.season
-        value: "2008,2009,2010,2011"
+        field: features.season
+        value: "2008,2010,2012,2014"
       }
     }
   }
@@ -46,40 +38,30 @@ view: training_input {
 
 view: testing_input {
   derived_table: {
-    explore_source: games {
-      column: id {}
-      column: home_team { field: game_stats.home_team }
-      column: away_team { field: game_stats.away_team }
-      column: home_shots { field: fixture_history_pdt.home_shots }
-      column: away_shots { field: fixture_history_pdt.away_shots }
-      column: fixture_home_shots_on_target { field: fixture_history_pdt.home_shots_on_target }
-      column: fixture_away_shots_on_target { field: fixture_history_pdt.away_shots_on_target }
-      column: fixture_home_team_shot_accuracy { field: fixture_history_pdt.home_team_shot_accuracy }
-      column: fixture_away_team_shot_accuracy { field: fixture_history_pdt.away_team_shot_accuracy }
-      column: fixture_home_win_percent { field: fixture_history_pdt.home_win_percent }
-      column: fixture_Away_win_percent { field: fixture_history_pdt.Away_win_percent }
-      column: home_wins { field: fixture_history_pdt.home_wins }
-      column: away_wins { field: fixture_history_pdt.away_wins }
-      column: draws { field: fixture_history_pdt.draws }
-      column: home_win_implied_probability { field: fixture_history_pdt.home_win_implied_probability }
-      column: away_implied_probability { field: fixture_history_pdt.away_implied_probability }
-      column: draw_implied_probability { field: fixture_history_pdt.draw_implied_probability }
-      column: home_win_percent { field: home_stats_pdt.home_win_percent }
-      column: away_win_percent { field: away_stats_pdt.away_win_percent }
-      column: home_team_shot_accuracy { field: home_stats_pdt.home_team_shot_accuracy }
-      column: away_team_shot_accuracy { field: away_stats_pdt.away_team_shot_accuracy }
-      column: home_shots_on_target { field: home_stats_pdt.home_shots_on_target }
-      column: away_shots_on_target { field: away_stats_pdt.away_shots_on_target }
-      column: win { field: game_stats.win }
-      filters: {
-        field: games.season
-        value: "2012,2013,2014,2015,2016,2017"
-      }
+        explore_source: features {
+          column: id {}
+          column: home_team {}
+          column: away_team {}
+          column: home_wins {}
+          column: away_wins {}
+          column: home_shot_accuracy {}
+          column: home_conversion_rate {}
+          column: home_win_percent {}
+          column: away_win_percent  {}
+          column: home_win_implied_probability {}
+          column: away_implied_probability {}
+          column: loss_percent {}
+          column: win_percent {}
+          column: win_probability {}
+          column: conversion_rate {}
+          column: win {}
+          filters: {
+            field: features.season
+            value: "2007,2009,2011,2013.2017"
+          }
     }
   }
 }
-
-
 
 ######################## MODEL #############################
 # Algorythm logistic regression, binary outcome, linear reg for range
@@ -99,7 +81,7 @@ view: win_model {
         , max_iterations = 40
         ) AS
       SELECT
-         * EXCEPT(Id)
+         * EXCEPT(id)
       FROM ${training_input.SQL_TABLE_NAME};;
   }
 }
@@ -109,7 +91,7 @@ view: win_model {
 # Takes our model as input,  the model we created above
 # test it against out testing dataset
 
-explore:win_model_evaluation {}
+explore: win_model_evaluation {}
 explore: win_model_training_info {}
 explore: roc_curve {}
 
@@ -133,17 +115,35 @@ view: roc_curve {
         MODEL ${win_model.SQL_TABLE_NAME},
         (SELECT * FROM ${testing_input.SQL_TABLE_NAME}));;
   }
+
   dimension: threshold {
-   type: number}
+    type: number
+    link: {
+      label: "Likely to Win"
+      url: "/explore/dave_football_thesis/predicton_view?fields=predicton_view.home_team,predicton_view.away_team,future_win_prediction.max_predicted_score&f[future_win_prediction.win]={{ value }}"
+     icon_url: "http://www.looker.com/favicon.ico"
+    }
+  }
 
-
-
-  dimension: recall {type: number value_format_name: percent_2}
-  dimension: false_positive_rate {type: number}
-  dimension: true_positives {type: number }
-  dimension: false_positives {type: number}
-  dimension: true_negatives {type: number}
-  dimension: false_negatives {type: number }
+  dimension: recall {
+    type: number
+    value_format_name: percent_2
+    }
+  dimension: false_positive_rate {
+    type: number
+    }
+  dimension: true_positives {
+    type: number
+    }
+  dimension: false_positives {
+    type: number
+    }
+  dimension: true_negatives {
+    type: number
+    }
+  dimension: false_negatives {
+    type: number
+    }
   dimension: precision {
     type:  number
     value_format_name: percent_2
@@ -168,9 +168,6 @@ view: roc_curve {
     sql: 2.0*${recall}*${precision} / NULLIF((${recall}+${precision}),0);;
   }
 }
-
-
-
 ######################## TRAINING INFORMATION #############################
 # Less about how the mosel performed and more about
 # How long it took to train
@@ -211,64 +208,49 @@ view: win_model_training_info {
   }
 }
 
-
-
 ########################################## PREDICT FUTURE ############################
 
-
-
-
 view: future_input {
-  derived_table: {
-    explore_source: games {
-      column: id {}
-      column: home_team { field: game_stats.home_team }
-      column: away_team { field: game_stats.away_team }
-      column: home_shots { field: fixture_history_pdt.home_shots }
-      column: away_shots { field: fixture_history_pdt.away_shots }
-      column: fixture_home_shots_on_target { field: fixture_history_pdt.home_shots_on_target }
-      column: fixture_away_shots_on_target { field: fixture_history_pdt.away_shots_on_target }
-      column: fixture_home_team_shot_accuracy { field: fixture_history_pdt.home_team_shot_accuracy }
-      column: fixture_away_team_shot_accuracy { field: fixture_history_pdt.away_team_shot_accuracy }
-      column: fixture_home_win_percent { field: fixture_history_pdt.home_win_percent }
-      column: fixture_Away_win_percent { field: fixture_history_pdt.Away_win_percent }
-      column: home_wins { field: fixture_history_pdt.home_wins }
-      column: away_wins { field: fixture_history_pdt.away_wins }
-      column: draws { field: fixture_history_pdt.draws }
-      column: home_win_implied_probability { field: fixture_history_pdt.home_win_implied_probability }
-      column: away_implied_probability { field: fixture_history_pdt.away_implied_probability }
-      column: draw_implied_probability { field: fixture_history_pdt.draw_implied_probability }
-      column: home_win_percent { field: home_stats_pdt.home_win_percent }
-      column: away_win_percent { field: away_stats_pdt.away_win_percent }
-      column: home_team_shot_accuracy { field: home_stats_pdt.home_team_shot_accuracy }
-      column: away_team_shot_accuracy { field: away_stats_pdt.away_team_shot_accuracy }
-      column: home_shots_on_target { field: home_stats_pdt.home_shots_on_target }
-      column: away_shots_on_target { field: away_stats_pdt.away_shots_on_target }
-      filters: {
-        field: games.season
-        value: "2018"
-      }
+    derived_table: {
+      explore_source: features {
+        column: id {}
+        column: home_team {}
+        column: away_team {}
+        column: home_wins {}
+        column: away_wins {}
+        column: home_shot_accuracy {}
+        column: home_conversion_rate {}
+        column: home_win_percent {}
+        column: away_win_percent  {}
+        column: home_win_implied_probability {}
+        column: away_implied_probability {}
+        column: loss_percent {}
+        column: win_percent {}
+        column: win_probability {}
+        column: conversion_rate {}
+        column: win {}
     }
   }
 }
 
 
+
 view: future_win_prediction {
   derived_table: {
     sql: SELECT * FROM ml.PREDICT(
-          MODEL ${future_win_model.SQL_TABLE_NAME},
+          MODEL ${win_model.SQL_TABLE_NAME},
           (SELECT * FROM ${future_input.SQL_TABLE_NAME}));;
   }
-  dimension: predicted_will_win_in_future {type: number}
-  dimension: Id {type: number hidden:yes}
+  dimension: predicted_will_win {type: number}
+  dimension: id {type: number hidden:yes}
   measure: max_predicted_score {
     type: max
     value_format_name: percent_2
-    sql: ${predicted_will_win_in_future} ;;
+    sql: ${predicted_will_win} ;;
   }
   measure: average_predicted_score {
     type: average
     value_format_name: percent_2
-    sql: ${predicted_will_win_in_future} ;;
+    sql: ${predicted_will_win} ;;
   }
 }

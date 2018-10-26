@@ -66,7 +66,6 @@ view: game_stats {
   dimension: home_team {
     type: string
     sql: ${TABLE}.home_team ;;
-    drill_fields: [id]
   }
 
   dimension: home_team_shots_on_target {
@@ -373,6 +372,10 @@ view: game_stats {
     type: number
     sql: ${count_away_team_half_time_goals}-${count_home_team_half_time_goals};;
   }
+  measure: home_come_back2 {
+    type: number
+    sql: ${count_away_team_half_time_goals};;
+  }
 
   measure: away_come_back {
     type: number
@@ -486,10 +489,10 @@ view: game_stats {
     type: yesno
     sql: ${home_team_half_time_goals}-${away_team_half_time_goals} > 0 ;;
   }
-  dimension: win{
+  dimension: win {
     description: "Outcome - Win"
-    type: number
-    sql: IF(${full_time_score} = 'H', 1,0);;
+    type: yesno
+    sql: ${full_time_score} = 'H';;
   }
 
 }

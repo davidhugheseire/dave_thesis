@@ -4,8 +4,8 @@ include: "dave_football_thesis.model.lkml"
 view: features {
   derived_table: {
     explore_source: games {
-      column: id {}
-      column: season {}
+      column: id                            { field: game_stats.id}
+      column: season                        { field: games.season}
       column: home_team                     { field: game_stats.home_team }
       column: away_team                     { field: game_stats.away_team }
       column: home_wins                     { field: fixture_history_pdt.home_wins }
@@ -34,11 +34,7 @@ view: features {
     value_format: "0.00\%"
     type: number
   }
-  dimension: home_team_rate {
-    label: "Home Conversion Rate"
-    value_format: "0.00\%"
-    type: number
-  }
+
   dimension: home_win_percent {
     label: "Historic Win %"
     value_format: "0.00\%"
@@ -94,7 +90,7 @@ view: features {
     type: number
   }
   dimension: win {
-    label: "Game Stats Win (Yes / No)"
+    label: "Win"
     description: "Outcome - Win"
     type: yesno
   }

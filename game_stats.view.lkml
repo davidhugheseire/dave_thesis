@@ -490,9 +490,8 @@ view: game_stats {
     sql: ${home_team_half_time_goals}-${away_team_half_time_goals} > 0 ;;
   }
   dimension: win {
-    description: "Outcome - Win"
-    type: yesno
-    sql: ${full_time_score} = 'H';;
+    type: number
+    sql:if( ${full_time_score} = 'H',1,0);;
   }
 
 }

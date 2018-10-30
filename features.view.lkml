@@ -1,5 +1,5 @@
 # If necessary, uncomment the line below to include explore_source.
-include: "dave_football_thesis.model.lkml"
+# include: "dave_football_thesis.model.lkml"
 
 view: features {
   derived_table: {
@@ -67,7 +67,7 @@ view: features {
     type: number
   }
   dimension: win_probability {
-    label: "Fixture Loss Implied Probability"
+    label: "Fixture Win Probability"
     value_format: "0\%"
     type: number
   }
@@ -91,7 +91,6 @@ view: features {
   }
   dimension: win {
     label: "Win"
-    description: "Outcome - Win"
-    type: yesno
+    type: number
   }
 }

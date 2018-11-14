@@ -8,6 +8,7 @@ view: players {
   }
 
   dimension: age {
+    drill_fields: [player_name,age,club,nationality,position,total_market_value]
     type: number
     sql: ${TABLE}.age ;;
   }
@@ -62,11 +63,6 @@ view: players {
     sql: ${TABLE}.team_id ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [player_id]
-  }
-
   measure: total_market_value {
     type: number
     sql: sum(${market_value});;
@@ -107,7 +103,11 @@ view: players {
     sql:  ${TABLE}.player ;;
     html: {{linked_value}}
           <a href="https://www.google.com/search?q={{ value }}" height="90%" width="90%" target="_new">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Google-favicon-2015.png" height=15 width=15> </a> ;;
+          <img src="https://www.google.ie/url?sa=i&source=images&cd=&ved=2ahUKEwi654Sky8zeAhXECcAKHeRHDoUQjRx6BAgBEAU&url=http%3A%2F%2Fwww.pngpix.com%2Fdownload%2Ffootball-png-transparent-image-3&psig=AOvVaw1JZN2yKci6VNsN6JAREng6&ust=1542034225192168" height=15 width=15> </a> ;;
+  }
+
+  measure: count {
+    type: count
   }
 
 }

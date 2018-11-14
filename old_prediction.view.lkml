@@ -1,4 +1,4 @@
-######################## TESTING INPUTS #############################
+#######################TESTING INPUTS #############################
 # Historic data
 # you know the outcome
 #
@@ -16,15 +16,9 @@ view: training_input {
       column: win_percent { field: features.win_percent }
       column: loss_percent { field: features.loss_percent }
       column: away_win_percent  {field: features.away_win_percent}
-      column: conversion_rate {field: features.conversion_rate}
+      column: home_win_implied_probability {field: features.home_win_implied_probability}
+      column: away_implied_probability {field: features.away_implied_probability}
       column: win { field: game_stats.win }
-      column: home_conversion_rate {field: features.home_conversion_rate}
-      # column: home_wins {field: features.home_wins}
-      # column: away_wins {field: features.away_wins}
-      # column: home_shot_accuracy {field: features.home_shot_accuracy}
-      # column: home_win_implied_probability {field: features.home_win_implied_probability}
-      # column: away_implied_probability {field: features.away_implied_probability}
-      # column: win_probability {field: features.win_probability}
       filters: {
         field: games.season
         value: "2008,2009,2010,2011"
@@ -35,7 +29,7 @@ view: training_input {
 
 
 
-######################## TRAINING INPUTS #############################
+#######################TRAINING INPUTS #############################
 #Training Data different partition range of data
 #
 #
@@ -45,22 +39,16 @@ view: training_input {
 view: testing_input {
   derived_table: {
     explore_source: games {
-     column: id {}
+    column: id {}
       column: home_team { field: game_stats.home_team }
       column: away_team { field: game_stats.away_team }
       column: home_win_percent {field: features.home_win_percent}
       column: win_percent { field: features.win_percent }
       column: loss_percent { field: features.loss_percent }
       column: away_win_percent  {field: features.away_win_percent}
-      column: conversion_rate {field: features.conversion_rate}
+      column: home_win_implied_probability {field: features.home_win_implied_probability}
+      column: away_implied_probability {field: features.away_implied_probability}
       column: win { field: game_stats.win }
-      column: home_conversion_rate {field: features.home_conversion_rate}
-      # column: home_wins {field: features.home_wins}
-      # column: away_wins {field: features.away_wins}
-      # column: home_shot_accuracy {field: features.home_shot_accuracy}
-      # column: home_win_implied_probability {field: features.home_win_implied_probability}
-      # column: away_implied_probability {field: features.away_implied_probability}
-      # column: win_probability {field: features.win_probability}
       filters: {
         field: games.season
         value: "2012,2013,2014,2015,2016,2017"
@@ -71,7 +59,7 @@ view: testing_input {
 
 
 
-######################## MODEL #############################
+#######################MODEL #############################
 # Algorythm logistic regression, binary outcome, linear reg for range
 # Column we are predicting
 # Measure of improvment if it doesnt improve more than 0.005 quit
@@ -88,16 +76,17 @@ view: win_model {
       CREATE OR REPLACE MODEL ${SQL_TABLE_NAME}
       OPTIONS(model_type='logistic_reg'
         , labels=['win']
+  --      , class_weights=[('win', 0.6), ('draw', 0.4), ('lose', 0.2)]
         , min_rel_progress = 0.005
         , max_iterations = 40
         ) AS
       SELECT
-         * EXCEPT(Id)
+        * EXCEPT(id)
       FROM ${training_input.SQL_TABLE_NAME};;
   }
 }
 
-######################## MODEL EVALUATION INFORMATION #############################
+#######################MODEL EVALUATION INFORMATION #############################
 # Functions for evaluating the model
 # Takes our model as input,  the model we created above
 # test it against out testing dataset
@@ -110,22 +99,41 @@ explore: win_model_evaluation {}
 explore: win_model_training_info {}
 explore: roc_curve {}
 explore: win_model {}
-explore:future_win_prediction {}
+explore: future_win_prediction {}
 
-# VIEWS:
+#######################MODEL EVALUATION ##############################
 view: win_model_evaluation {
   derived_table: {
     sql: SELECT * FROM ml.EVALUATE(
           MODEL ${win_model.SQL_TABLE_NAME},
           (SELECT * FROM ${testing_input.SQL_TABLE_NAME}));;
   }
-  dimension: recall {type: number value_format_name:percent_2}
-  dimension: accuracy {type: number value_format_name:percent_2}
-  dimension: f1_score {type: number value_format_name:percent_3}
-  dimension: log_loss {type: number}
-  dimension: roc_auc {type: number}
+
+  dimension: recall {
+    type: number
+    value_format_name:percent_2
+    }
+
+  dimension: accuracy {
+    type: number
+    value_format_name:percent_2
+    }
+
+  dimension: f1_score {
+    type: number
+    value_format_name:percent_3
+    }
+
+  dimension: log_loss {
+    type: number
+    }
+
+  dimension: roc_auc {
+    type: number
+    }
 }
 
+#######################MODEL EVALUATION ##############################
 view: roc_curve {
   derived_table: {
     sql: SELECT * FROM ml.ROC_CURVE(
@@ -135,25 +143,45 @@ view: roc_curve {
 
   dimension: threshold {
     type: number
+    value_format: "0.00\%"
     link: {
       label: "Likely to Win"
-      url: "/explore/dave_football_thesis/games?fields=game_stats.home_team,game_stats.away_team,future_win_prediction.max_predicted_score&f[future_win_prediction.predicted_win]=%3E%3D{{value}}"
+      url: "/explore/dave_football_thesis/games?fields=future_fixtures.week_of_the_year,future_fixtures.home_team,future_fixtures.away_team,future_win_prediction.max_predicted_score&f[future_win_prediction.predicted_win]=%3E%3D{{value}}"
     icon_url: "http://www.looker.com/favicon.ico"
     }
   }
 
+  dimension: recall {
+    type: number
+    value_format_name: percent_2
+    }
 
-  dimension: recall {type: number value_format_name: percent_2}
-  dimension: false_positive_rate {type: number}
-  dimension: true_positives {type: number }
-  dimension: false_positives {type: number}
-  dimension: true_negatives {type: number}
-  dimension: false_negatives {type: number }
+  dimension: false_positive_rate {
+    type: number
+    }
+
+  dimension: true_positives {
+    type: number
+    }
+
+  dimension: false_positives {
+    type: number
+    }
+
+  dimension: true_negatives {
+    type: number
+    }
+
+  dimension: false_negatives {
+    type: number
+    }
+
   dimension: precision {
     type:  number
     value_format_name: percent_2
     sql:  ${true_positives} / NULLIF((${true_positives} + ${false_positives}),0);;
   }
+
   measure: total_false_positives {
     type: sum
     sql: ${false_positives} ;;
@@ -176,7 +204,7 @@ view: roc_curve {
 
 
 
-######################## TRAINING INFORMATION #############################
+#######################TRAINING INFORMATION #############################
 # Less about how the mosel performed and more about
 # How long it took to train
 # How many iteration it took
@@ -235,7 +263,7 @@ view: win_model_training_info {
 
 
 
-########################################## PREDICT FUTURE ############################
+#########################################PREDICT FUTURE ############################
 #
 #
 #
@@ -244,23 +272,17 @@ view: win_model_training_info {
 view: future_input {
   derived_table: {
     explore_source: games {
-      column: id {}
-      column: home_team { field: game_stats.home_team }
-      column: away_team { field: game_stats.away_team }
+      column: id {field: future_fixtures.match_index}
+      column: home_team { field: future_fixtures.home_team }
+      column: away_team { field: future_fixtures.away_team }
       column: home_win_percent {field: features.home_win_percent}
       column: win_percent { field: features.win_percent }
       column: loss_percent { field: features.loss_percent }
       column: away_win_percent  {field: features.away_win_percent}
-      column: conversion_rate {field: features.conversion_rate}
-      column: home_conversion_rate {field: features.home_conversion_rate}
-      # column: home_wins {field: features.home_wins}
-      # column: away_wins {field: features.away_wins}
-      # column: home_shot_accuracy {field: features.home_shot_accuracy}
-      # column: home_win_implied_probability {field: features.home_win_implied_probability}
-      # column: away_implied_probability {field: features.away_implied_probability}
-      # column: win_probability {field: features.win_probability}
+      column: home_win_implied_probability {field: features.home_win_implied_probability}
+      column: away_implied_probability {field: features.away_implied_probability}
       filters: {
-        field: games.season
+        field: future_fixtures.season
         value: "2018"
       }
     }
@@ -280,14 +302,18 @@ view: future_win_prediction {
     hidden:yes
     type: number
   }
+
   dimension: predicted_win {
     type: number
   }
+
+
   measure: max_predicted_score {
     type: max
     value_format_name: percent_2
     sql: ${predicted_win} ;;
   }
+
   measure: average_predicted_score {
     type: average
     value_format_name: percent_2

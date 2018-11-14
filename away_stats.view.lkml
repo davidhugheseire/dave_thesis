@@ -103,4 +103,11 @@ view: away_stats_pdt {
     value_format: "0\%"
     type: number
   }
+
+  measure: shot_accuracy {
+    type: max
+    label: "Shot Accuracy"
+    sql: ${TABLE}.away_team_shot_accuracy;;
+    value_format: "0.00\%"
+  }
 }

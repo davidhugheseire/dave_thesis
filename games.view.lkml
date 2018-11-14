@@ -1,6 +1,9 @@
 view: games {
   sql_table_name: dave_thesis.games ;;
 
+
+
+
   dimension: id {
     primary_key: yes
     type: string
@@ -30,6 +33,16 @@ view: games {
     datatype: date
     sql: ${TABLE}.date ;;
   }
+
+  dimension: day_of_week {
+    sql: extract(DAYOFWEEK from ${date_date}) ;;
+    label: "Day of Week"
+  }
+
+
+
+
+
 
   dimension: division {
     type: string
@@ -70,4 +83,9 @@ view: games {
     type: count
     drill_fields: [id]
   }
+
+
+
+
+
 }

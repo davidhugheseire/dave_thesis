@@ -12,13 +12,14 @@ datagroup: dave_football_thesis_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-
+# Prediction Datagroup
+# Retrain model every day
 datagroup: bqml_datagroup {
-  #retrain model every day
-  max_cache_age: "1 hour"
+  max_cache_age: "24 hour"
   sql_trigger: SELECT CURRENT_DATE() ;;
 }
 
+# League PDT datagroup
 datagroup: league_pdt_datagroup  {
   sql_trigger: SELECT MAX(id) FROM game_stats;;
   max_cache_age: "30 minutes"
@@ -39,7 +40,21 @@ explore: away_stats_pdt {}
 explore: fixture_history_pdt {}
 explore: features {}
 explore: fixtures {}
-#explore: future_win_prediction {}
+explore: future_fixtures {}
+
+#####################################Prediction Model explores
+#explore: away_win_model {}
+#explore: home_win_model {}
+explore: away_win_model_evaluation {}
+explore: home_win_model_evaluation {}
+explore: away_win_model_training_info {}
+explore: home_win_model_training_info {}
+explore: away_win_roc_curve {}
+explore: home_win_roc_curve {}
+explore: away_win_prediction {}
+explore: home_win_prediction {}
+
+
 
 
 explore: players {
@@ -57,7 +72,7 @@ explore: home_stats_pdt {
     relationship: one_to_one
   }
 }
-
+################################################ Main Explore
 explore: games {
 join: game_stats {
   type: left_outer
@@ -120,10 +135,25 @@ join: game_stats {
     and ${fixture_history_pdt.away_team_id} = ${games.away_team_id};;
     relationship: one_to_one
   }
-  join: future_win_prediction{
+  join: future_fixtures{
     type: left_outer
-    sql_on: ${future_win_prediction.id} = ${games.id};;
+    sql_on: ${future_fixtures.home_team_id} = ${games.home_team_id}
+    and ${future_fixtures.away_team_id} = ${games.away_team_id};;
     relationship: one_to_one
   }
-
+  join: future_win_prediction{
+    type: left_outer
+    sql_on: ${future_win_prediction.id} = ${future_fixtures.match_index};;
+    relationship: one_to_one
+  }
+  join: home_win_prediction{
+    type: left_outer
+    sql_on: ${home_win_prediction.id} = ${future_fixtures.match_index};;
+    relationship: one_to_one
+  }
+  join: away_win_prediction{
+    type: left_outer
+    sql_on: ${away_win_prediction.id} = ${future_fixtures.match_index};;
+    relationship: one_to_one
+  }
 }

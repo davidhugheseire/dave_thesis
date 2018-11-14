@@ -100,4 +100,11 @@ view: home_stats_pdt {
     type: number
   }
 
+  measure: shot_accuracy {
+    type: max
+    label: "Shot Accuracy"
+    sql: ${TABLE}.home_team_shot_accuracy;;
+    value_format: "0.00\%"
+  }
+
 }

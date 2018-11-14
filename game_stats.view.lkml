@@ -147,15 +147,26 @@ view: game_stats {
     sql: ${full_time_result} ;;
     html:
     {% if value == "Home team won" %}
-      <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+      <div><img src="https://www.hiesscheme.org.uk/installers/wp-content/uploads/2018/07/check-mark-green-tick-mark.png" width="55%" height="55%" align="middle"/></div>
     {% elsif value == "Away team Won" %}
-      <p style="color: black; background-color: orange; font-size:100%; text-align:center">{{ rendered_value }}</p>
+      <div><img src="https://image.flaticon.com/icons/png/512/458/458594.png" width="55%" height="55%" align="middle"/></div>
     {% else %}
       <p style="color: black; background-color: lightyellow; font-size:100%; text-align:center">{{ rendered_value }}</p>
     {% endif %}
 ;;
   }
-
+  dimension: away_result {
+    sql: ${full_time_result} ;;
+    html:
+    {% if value == "Home team won" %}
+      <p style="color: black; background-color: orange; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    {% elsif value == "Away team Won" %}
+      <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    {% else %}
+      <p style="color: black; background-color: lightyellow; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    {% endif %}
+;;
+  }
   dimension: result_last_10 {
     sql: ${full_time_result} ;;
     html:
@@ -170,7 +181,7 @@ view: game_stats {
   }
 
   dimension: team_image  {
-    description: "Team Crest"
+    description: "Home Team Crest"
     type: string
     sql:  ${TABLE}.home_team ;;
     html:
@@ -194,7 +205,7 @@ view: game_stats {
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t14.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Man City" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t43.svg  " width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Man United" %}
+    {% elsif {{value}} == "Manchester United" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t1.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Newcastle United" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t4.svg" width="55%" height="55%" align="middle"/></div>
@@ -218,7 +229,7 @@ view: game_stats {
   }
 
   dimension: ateam_image  {
-    description: "aTeam Crest"
+    description: "Away Team Crest"
     type: string
     sql:  ${TABLE}.away_team ;;
     html:
@@ -242,7 +253,7 @@ view: game_stats {
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t14.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Man City" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t43.svg  " width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Man United" %}
+    {% elsif {{value}} == "Manchester United" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t1.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Newcastle United" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t4.svg" width="55%" height="55%" align="middle"/></div>
@@ -484,14 +495,84 @@ view: game_stats {
     value_format:"0.00\%"
   }
 
+  measure: home_team_conversion_rate_test {
+    type: string
+    case: {
+      when: {
+        sql: (((${count_home_goals}/${home_shots})))*100 > 5.0;;
+        label: "Home team winning"
+      }
+     }
+    }
+
   measure: home_winning_at_half_time{
     description: "Home team winning at half time"
     type: yesno
     sql: ${home_team_half_time_goals}-${away_team_half_time_goals} > 0 ;;
   }
+
+
+
+
   dimension: win {
     type: number
     sql:if( ${full_time_score} = 'H',1,0);;
   }
 
+  dimension: away_win {
+    type: number
+    sql:if( ${full_time_score} = 'A',1,0);;
+  }
+
+
+
+# # Filter
+#   parameter: max_rank {
+#     type: number
+#   }
+#
+# # Group by max rank
+#   dimension: rank_limit {
+#     type: number
+#     sql: {% parameter max_rank %} ;;
+#   }
+
+#   filter: show_top {
+#     type: number
+#   }
+
+#   dimension: win {
+#     type: number
+#     sql: ${full_time_score};;
+#   }
+#
+
+#   dimension: win {
+#     type: number
+#     sql:
+#     CASE
+#     WHEN ${full_time_score} = 'H' THEN 1
+#     WHEN ${full_time_score} = 'A' THEN 2
+#     WHEN ${full_time_score} = 'D' THEN 3
+#     ELSE 9
+#     END ;;
+#   }
+
+#   dimension: win{
+#     type: number
+#     case: {
+#       when:{
+#         sql: ${full_time_score} = 'H' ;;
+#         label: "1"
+#       }
+#       when:{
+#         sql: ${full_time_score} = 'A'  ;;
+#         label:"2"
+#       }
+#       when:{
+#         sql: ${full_time_score} = 'D'  ;;
+#         label:"3"
+#       }
+#     }
+#   }
 }

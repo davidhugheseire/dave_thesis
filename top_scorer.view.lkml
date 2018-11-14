@@ -41,4 +41,10 @@ view: top_scorer {
     type: count
     drill_fields: [id]
   }
+
+  measure: total_goals {
+    label: "Total Players Goals"
+    type: number
+    sql: sum(${goals}) ;;
+  }
 }

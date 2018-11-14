@@ -51,6 +51,12 @@ view: league_tables {
   dimension: team {
     type: string
     sql: ${TABLE}.team ;;
+    label: "Teams"
+    link: {
+      label: "Team Dashboard"
+      #url: "https://productday.dev.looker.com/dashboards/246?Home%20Team={{ future_fixtures.home_team }}&Away%20Team={{ future_fixtures.away_team | url_encode }}"
+      url: "https://productday.dev.looker.com/dashboards/239?Team={{ team }}&Away%20Team={{ team  | url_encode }}"
+    }
   }
 
   dimension: team_id {

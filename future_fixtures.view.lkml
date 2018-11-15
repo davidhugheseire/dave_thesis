@@ -2,6 +2,7 @@ view: future_fixtures {
   sql_table_name: dave_thesis.future_fixtures ;;
 
   dimension: away_team {
+    label: "Away"
     type: string
     sql: ${TABLE}.away_team ;;
   }
@@ -12,6 +13,7 @@ view: future_fixtures {
   }
 
   dimension_group: date {
+    label: "Date"
     type: time
     timeframes: [
       raw,
@@ -59,10 +61,12 @@ view: future_fixtures {
 }
 
 
+
+
   dimension: home_team {
+    label: "Home"
     type: string
     sql: ${TABLE}.home_team ;;
-    label: "Home Team"
     link: {
       label: "Team Dashboard"
       #url: "https://productday.dev.looker.com/dashboards/246?Home%20Team={{ future_fixtures.home_team }}&Away%20Team={{ future_fixtures.away_team | url_encode }}"

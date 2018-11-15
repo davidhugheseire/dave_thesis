@@ -297,10 +297,6 @@ view: away_win_prediction {
     type: number
   }
 
-#   dimension: predicted_win_probs {
-#     type: number
-#   }
-
   measure: max_predicted_score {
     type: max
     value_format_name: percent_2
@@ -312,6 +308,12 @@ view: away_win_prediction {
     value_format_name: percent_2
     sql: ${predicted_away_win} ;;
   }
+
+
+
+
+
+
 
 #   dimension: prediction {
 #     type: string
@@ -336,4 +338,11 @@ view: away_win_prediction {
 #         label: "Looker Predicts Draw"}
 #     }
 #   }
+
+#   dimension: predicted_win_probs {
+#     type: number
+#   }
+
+
+
 }

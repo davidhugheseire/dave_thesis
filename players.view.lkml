@@ -106,8 +106,23 @@ view: players {
           <img src="https://www.google.ie/url?sa=i&source=images&cd=&ved=2ahUKEwi654Sky8zeAhXECcAKHeRHDoUQjRx6BAgBEAU&url=http%3A%2F%2Fwww.pngpix.com%2Fdownload%2Ffootball-png-transparent-image-3&psig=AOvVaw1JZN2yKci6VNsN6JAREng6&ust=1542034225192168" height=15 width=15> </a> ;;
   }
 
+  dimension: age_tier{
+  type: tier
+  tiers: [15,20,25,30,35,40]
+  style: integer
+  sql: ${age} ;;
+  }
+
+
+
   measure: count {
-    type: count
+type:count_distinct
+sql: ${TABLE}.player_id;;
+}
+
+  measure: count_pos {
+    type:count_distinct
+    sql: ${TABLE}.position;;
   }
 
 }

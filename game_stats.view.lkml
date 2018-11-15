@@ -147,23 +147,29 @@ view: game_stats {
     sql: ${full_time_result} ;;
     html:
     {% if value == "Home team won" %}
-      <div><img src="https://www.hiesscheme.org.uk/installers/wp-content/uploads/2018/07/check-mark-green-tick-mark.png" width="55%" height="55%" align="middle"/></div>
+      <div><img src="https://www.hiesscheme.org.uk/installers/wp-content/uploads/2018/07/check-mark-green-tick-mark.png" width=40px height=40px align="middle"/></div>
     {% elsif value == "Away team Won" %}
-      <div><img src="https://image.flaticon.com/icons/png/512/458/458594.png" width="55%" height="55%" align="middle"/></div>
+      <div><img src="https://image.flaticon.com/icons/png/512/458/458594.png" width=40px height=40px align="middle"/></div>
     {% else %}
-      <p style="color: black; background-color: lightyellow; font-size:100%; text-align:center">{{ rendered_value }}</p>
+      <div><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Breezeicons-actions-22-filename-dash-amarok.svg/2000px-Breezeicons-actions-22-filename-dash-amarok.svg.png" width=40px height=40px align="middle"/></div>
     {% endif %}
+
 ;;
   }
+
+
+
+
+
   dimension: away_result {
     sql: ${full_time_result} ;;
     html:
     {% if value == "Home team won" %}
-      <p style="color: black; background-color: orange; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    <div><img src="https://image.flaticon.com/icons/png/512/458/458594.png" width=40px height=40px align="middle"/></div>
     {% elsif value == "Away team Won" %}
-      <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    <div><img src="https://www.hiesscheme.org.uk/installers/wp-content/uploads/2018/07/check-mark-green-tick-mark.png" width=40px height=40px align="middle"/></div>
     {% else %}
-      <p style="color: black; background-color: lightyellow; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    <div><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Breezeicons-actions-22-filename-dash-amarok.svg/2000px-Breezeicons-actions-22-filename-dash-amarok.svg.png" width=40px height=40px align="middle"/></div>
     {% endif %}
 ;;
   }

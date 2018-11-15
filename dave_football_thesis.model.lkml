@@ -51,9 +51,23 @@ explore: away_win_model_training_info {}
 explore: home_win_model_training_info {}
 explore: away_win_roc_curve {}
 explore: home_win_roc_curve {}
-explore: away_win_prediction {}
-explore: home_win_prediction {}
+#explore: away_win_prediction {}
 
+explore: home_win_prediction {
+  join: future_fixtures {
+    type: left_outer
+    sql_on: ${home_win_prediction.id} = ${future_fixtures.match_index} ;;
+    relationship: one_to_one
+  }
+}
+
+explore: away_win_prediction {
+  join: future_fixtures {
+    type: left_outer
+    sql_on: ${away_win_prediction.id} = ${future_fixtures.match_index} ;;
+    relationship: one_to_one
+  }
+}
 
 
 

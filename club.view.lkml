@@ -64,19 +64,19 @@ view: club {
   }
 
 
-  dimension: stadium_image {
-    type: string
-    sql: ${TABLE}.stadium ;;
-    html: {{linked_value}}
-        <a href="https://www.google.com/search?q={{ value }}" height="90%" width="90%" target="_new">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Google-favicon-2015.png" height=15 width=15> </a> ;;
-  }
+#   dimension: stadium_image {
+#     type: string
+#     sql: ${TABLE}.stadium ;;
+#     html: {{linked_value}}
+#         <a href="https://www.google.com/search?q={{ value }}" height="90%" width="90%" target="_new">
+#         <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Google-favicon-2015.png" height=15 width=15> </a> ;;
+#   }
 
   dimension: stadium_images {
     type: string
     sql: ${TABLE}.team_name;;
     html:
-    {% if {{value}} == "Manchester United" %}
+    {% if {{value}} == "Manchester United" or {{value}} == "Man United" %}
     <img src="https://i2-prod.liverpoolecho.co.uk/incoming/article3004413.ece/ALTERNATES/s615/manchester-united-s-ground-old-trafford-620-640030011.jpg" width="90%" height="90%" align="middle"/>
     {% elsif {{value}} == "Liverpool" %}
     <img src="https://media-cdn.tripadvisor.com/media/photo-s/0c/ea/e3/5e/photo1jpg.jpg" width="90%" height="90%" align="middle"/>
@@ -86,7 +86,16 @@ view: club {
     <img src="https://goo.gl/pW1Ybq" width="90%" height="90%" align="middle"/>
     {% elsif {{value}} == "Arsenal" %}
     <img src="https://images.historicenglandservices.org.uk/p/106/emirates-stadium-arsenal-24985-021-1329910.jpg" width="90%" height="90%" align="middle"/>
+    {% elsif {{value}} == "Aston Villa" %}
+    <img src="https://t.resfu.com/media/img_news/fotografia-del-interior-de-villa-park--tottenhamhotspur.jpg" width="90%" height="90%" align="middle"/>
+    {% elsif {{value}} == "Stoke" %}
+    <img src="https://footballtripper.com/wp-content/uploads/2015/02/britannia-stadium-cover.jpg" width="90%" height="90%" align="middle"/>
+    {% elsif {{value}} == "Newcastle" %}
+    <img src="http://stadiumdb.com/pictures/stadiums/eng/st_james_park/st_james_park01.jpg" width="90%" height="90%" align="middle"/>
     {% endif %};;
+
+
+
   }
 
   dimension: Stadium {

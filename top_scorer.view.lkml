@@ -28,7 +28,7 @@ view: top_scorer {
   }
 
   dimension: season {
-    type: number
+    type: string
     sql: ${TABLE}.season ;;
   }
 

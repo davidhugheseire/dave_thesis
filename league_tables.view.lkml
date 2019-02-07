@@ -59,6 +59,18 @@ view: league_tables {
     }
   }
 
+#   dimension: team {
+#     type: string
+#     sql: ${TABLE}.team ;;
+#     label: "Teams"
+#     link: {
+#       label: "Team Dashboard"
+#       url:"/looks/1225?fields=league_tables.team,league_tables.points,league_tables.position&f[Teams={{ value }}]"
+#       #url: "/dashboards/1114?State={{ value }}&Age={{ _filters['users.age'] | url_encode }}"
+#      # url: "https://productday.dev.looker.com/dashboards/239?Team={{ team }}&Away%20Team={{ team  | url_encode }}"
+#     }
+#   }
+
   dimension: team_id {
     type: string
     sql: ${TABLE}.team_id ;;

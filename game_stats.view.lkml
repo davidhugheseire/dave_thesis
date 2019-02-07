@@ -11,21 +11,37 @@ view: game_stats {
     type: string
     sql: ${TABLE}.away_team ;;
     drill_fields: [games.league,away_team]
+    group_label: "Away Info"
   }
 
   dimension: away_team_corners {
     type: number
     sql: ${TABLE}.away_team_corners ;;
+    group_label: "Away Info"
   }
 
   dimension: away_team_fouls {
     type: number
     sql: ${TABLE}.away_team_fouls ;;
+    group_label: "Away Info"
   }
 
   dimension: away_team_goals {
     type: number
     sql: ${TABLE}.away_team_goals ;;
+    group_label: "Away Info"
+  }
+
+  measure: quarter_wage1 {
+    type: sum
+    sql: ${TABLE}.away_team_goals;;
+    group_label: "Quarter"
+  }
+
+  measure: quarter_wage2 {
+    type: sum
+    sql: ${TABLE}.away_team_goals;;
+    group_label: "Quarter"
   }
 
   dimension: away_team_half_time_goals {
@@ -66,6 +82,7 @@ view: game_stats {
   dimension: home_team {
     type: string
     sql: ${TABLE}.home_team ;;
+    drill_fields: [games.date_raw,home_team,away_team,home_team_goals,away_team_goals,odds.home_win_odds,odds.away_win_odds,odds.draw_odds]
   }
 
   dimension: home_team_shots_on_target {
@@ -213,7 +230,7 @@ view: game_stats {
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t43.svg  " width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Manchester United" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t1.svg" width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Newcastle United" %}
+    {% elsif {{value}} == "Newcastle United" or {{value}} == "Newcastle" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t4.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Southampton" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t20.svg" width="55%" height="55%" align="middle"/></div>
@@ -256,12 +273,12 @@ view: game_stats {
     {% elsif {{value}} == "Leicester" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t13.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Liverpool" %}
-    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t14.svg" width="55%" height="55%" align="middle"/></div>
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t14.svg" width="30%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Man City" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t43.svg  " width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Manchester United" %}
+    {% elsif {{value}} == "Manchester United" or {{value}} == "Man United"%}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t1.svg" width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Newcastle United" %}
+    {% elsif {{value}} == "Newcastle United" or {{value}} == "Newcastle"%}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t4.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Southampton" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t20.svg" width="55%" height="55%" align="middle"/></div>
@@ -279,8 +296,14 @@ view: game_stats {
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t21.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Wolverhampton Wanderers" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t39.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "Aston Villa" %}
+    <div><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/Aston_Villa_FC_crest_%282016%29.svg/1200px-Aston_Villa_FC_crest_%282016%29.svg.png" width="20%" height="30%" align="middle"/></div>
+    {% elsif {{value}} == "Newcastle" %}
+    <div><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Newcastle_United_Logo.svg/1200px-Newcastle_United_Logo.svg.png" width="20%" height="30%" align="middle"/></div>
     {% endif %} ;;
   }
+
+
 
   dimension: both_teams_score {
     type: yesno
@@ -334,13 +357,17 @@ view: game_stats {
 
   measure: home_wins{
     type: count_distinct
+    drill_fields: [games.date_raw,home_team,away_team,home_team_goals,away_team_goals,odds.home_win_odds]
     sql: ${game_stats.id} ;;
-   drill_fields: [games.date_raw,home_team,away_team,home_team_goals,away_team_goals,odds.home_win_odds]
+
     filters: {
       field: full_time_score
       value: "H"
     }
   }
+
+
+
 
   measure: away_wins{
     type: count_distinct
@@ -350,6 +377,7 @@ view: game_stats {
       field: full_time_score
       value: "A"
     }
+    group_label: "Away Info"
   }
 
   measure: draws{

@@ -112,7 +112,7 @@ view: future_fixtures {
     html:
     {% if {{value}} == "Arsenal" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t3.svg" width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Brighton" %}
+    {% elsif {{value}} == "Brighton" or {{value}} == "Brighton and Hove Albion" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t36.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Burnley" %}
     <div><img src="" width="55%" height="55%" align="middle"/></div>
@@ -124,7 +124,7 @@ view: future_fixtures {
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t11.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Huddersfield" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t38.svg" width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Leicester" %}
+    {% elsif {{value}} == "Leicester" or  {{value}} == "Leicester City" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t13.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Liverpool" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t14.svg" width="55%" height="55%" align="middle"/></div>
@@ -132,16 +132,16 @@ view: future_fixtures {
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t43.svg  " width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Manchester United" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t1.svg" width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Newcastle" %}
+    {% elsif {{value}} == "Newcastle" or  {{value}} == "Newcastle United"%}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t4.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Southampton" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t20.svg" width="55%" height="55%" align="middle"/></div>
-    {% elsif {{value}} == "Stoke" %}
+    {% elsif {{value}} == "Stoke" or {{value}} == "Stoke City" %}
     <div><img src="https://cdn.shopify.com/s/files/1/1888/7339/files/Stoke_City_06_grande.jpg?v=1498033163" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Swansea City" %}
     <div><img src="" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Tottenham Hotspur" %}
-    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t6.svg" width="55%" height="55%" align="middle"/></div>
+    <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t6.svg" width="30%" height="30%" align="middle"/></div>
     {% elsif {{value}} == "Watford" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t57.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "West Bromwich Albion" %}
@@ -150,6 +150,8 @@ view: future_fixtures {
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t21.svg" width="55%" height="55%" align="middle"/></div>
     {% elsif {{value}} == "Wolverhampton Wanderers" %}
     <div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t39.svg" width="55%" height="55%" align="middle"/></div>
+    {% elsif {{value}} == "QPR" or {{value}} =="Queens Park Rangers" %}
+    <div><img src="https://upload.wikimedia.org/wikipedia/ar/thumb/3/31/Queens_Park_Rangers_crest.svg/768px-Queens_Park_Rangers_crest.svg.png" width="55%" height="55%" align="middle"/></div>
     {% endif %} ;;
   }
 #<div><img src="https://platform-static-files.s3.amazonaws.com/premierleague/badges/t14.svg" width="55%" height="55%" align="middle"/></div>

@@ -28,8 +28,18 @@ datagroup: league_pdt_datagroup  {
 persist_with: dave_football_thesis_default_datagroup
 
 
+explore: game_stats {
+  join: games {
+    type: left_outer
+    sql_on: ${games.id} = ${game_stats.id} ;;
+    relationship: one_to_one
+  }
+}
+
+
 explore: club {}
-explore: game_stats {}
+
+
 explore: league_tables {}
 #explore: players {}
 explore: top_scorer {}

@@ -122,6 +122,7 @@ view: home_win_model_evaluation {
 }
 
 ######################## MODEL EVALUATION ##############################
+
 view: home_win_roc_curve {
   derived_table: {
     sql: SELECT * FROM ml.ROC_CURVE(

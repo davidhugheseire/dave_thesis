@@ -141,8 +141,8 @@ view: players {
 
   measure: comebacks {
     label: "No of Comebacks"
-    type: count
-    sql:  game_stats.home_wins ;;
+    type: number
+    sql:  sum(game_stats.home_wins) ;;
     value_format:"#"
   }
 

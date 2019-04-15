@@ -17,6 +17,7 @@ datagroup: dave_football_thesis_default_datagroup {
 datagroup: bqml_datagroup {
   max_cache_age: "24 hour"
   sql_trigger: SELECT CURRENT_DATE() ;;
+  #comment
 }
 
 # League PDT datagroup

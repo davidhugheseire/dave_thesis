@@ -38,7 +38,14 @@ explore: game_stats {
 }
 
 
-explore: club {}
+explore: club {
+  always_filter: {
+    filters: {
+      field: team_id
+      value: "- tm10"
+    }
+  }
+}
 
 
 explore: league_tables {}
